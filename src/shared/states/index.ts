@@ -6,6 +6,8 @@ export const formatMonth = (month: number) => month < 10 ? `0${month}` : month
 
 export const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
 
+export const month = months[date.getMonth()]
+
 export const wallet = {
   balance: 0,
   incomes: 0,

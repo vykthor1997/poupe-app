@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SelectChangeEvent } from '@mui/material'
-import { transaction as t } from '../states'
+import { transaction as t, month as m } from '../states'
 import { TTransaction } from '../types'
 import { destroy, read } from '../firebase'
 import { useAuthContext, useTransactionContext } from '../contexts'
@@ -16,7 +16,7 @@ export const useDashboard = () => {
     data 
   } = useTransactionContext()
   const navigate = useNavigate()
-  const [ month, setMonth ] = useState('Setembro')
+  const [ month, setMonth ] = useState(m)
   const [ year, setYear ] = useState<string | number>(2022)
   const [ transaction, setTransaction ] = useState<TTransaction>()
   const [ transactions, setTransactions ] = useState<TTransaction[]>(transactionsContext)
