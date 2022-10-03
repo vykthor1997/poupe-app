@@ -2,7 +2,7 @@ import { TTransaction } from '../types'
 
 const date = new Date()
 
-export const formatMonth = (month: number) => month < 10 ? `0${month}` : month
+export const formatZero = (zero: number) => zero < 10 ? `0${zero}` : zero
 
 export const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
 
@@ -20,5 +20,5 @@ export const transaction: TTransaction = {
   type: 'Despesa',
   description: '',
   value: 0,
-  date: `${date.getFullYear()}/${formatMonth(date.getMonth() + 1)}/${date.getDate()}`
+  date: `${date.getFullYear()}/${formatZero(date.getMonth() + 1)}/${formatZero(date.getDate())}`
 }
