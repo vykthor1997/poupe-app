@@ -3,9 +3,11 @@ import { SxProps, Theme } from '@mui/material'
 export const wallet: SxProps<Theme> = {
   padding: 2,
   '& ul': {
-    display: 'flex',
-    flexDirection: 'column',
-    rowGap: 1,
+    display: 'grid',
+    gap: 1,
+    gridTemplateColumns: {
+      sm: '1fr 1fr 1fr'
+    },
     '& li': {
       justifyContent: 'space-between',
       '& svg': {
