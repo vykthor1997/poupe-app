@@ -1,6 +1,6 @@
 import { Box, Button, Divider, FormControl } from '@mui/material'
 import { AttachMoney } from '@mui/icons-material'
-import { Header, Loader, Note, Notification, Type } from '../../shared/components'
+import { Category, Header, Loader, Note, Notification, Type } from '../../shared/components'
 import { usePost } from '../../shared/hooks'
 import * as S from './style'
 
@@ -8,7 +8,8 @@ export const Post: React.FC = () => {
   const {
     title, color, 
     type, handleTypeChange,
-    borderColor, transaction, 
+    category, handleCategoryChange,
+    categories, borderColor, transaction, 
     handleDateChange, handleClose, handleSubmit,
     loader, message
   } = usePost()
@@ -24,6 +25,12 @@ export const Post: React.FC = () => {
         onSubmit={handleSubmit}
       >
         <Type type={type} handleTypeChange={handleTypeChange} />
+        <Divider />
+        <Category 
+          category={category} categories={categories} 
+          type={transaction.type}
+          handleChange={handleCategoryChange}
+        />
         <Divider />
         <Note 
           transaction={transaction} color={color} 

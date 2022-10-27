@@ -8,7 +8,17 @@ export const book: SxProps<Theme> = {
   '& li': {
     marginBottom: 1,
     justifyContent: 'space-between',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    '& p': {
+      display: 'flex', 
+      alignItems: 'center',
+      '& svg': {
+        marginRight: 1,
+        border: 'solid 1px',
+        padding: .2,
+        borderRadius: 1
+      }
+    }
   }, 
   '& hr': {
     marginBottom: 1

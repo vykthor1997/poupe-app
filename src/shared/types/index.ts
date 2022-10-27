@@ -6,6 +6,7 @@ export type TTransaction = {
   ref: string 
   period: string
   type: TTransactionType
+  category: string
   description: string
   value: number
   date: string

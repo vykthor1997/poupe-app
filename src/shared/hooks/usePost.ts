@@ -5,7 +5,7 @@ import { useAuthContext, useTransactionContext } from '../contexts'
 import { create, update } from '../firebase'
 import { months } from '../states'
 import { TTransactionType, TTransaction, TTypeColor } from '../types'
-import { getColor, getElementValues } from '../functions'
+import { getCategories, getCategory, getColor, getElementValues } from '../functions'
 import { getErrorMessage } from '../auth'
 
 export const usePost = () => {
@@ -15,6 +15,8 @@ export const usePost = () => {
   const { transactionContext, setUpdate } = useTransactionContext()
   
   const [ type, setType ] = useState(transactionContext.type)
+  const [ category, setCategory ] = useState(transactionContext.category)
+  const [ categories, setCategories ] = useState(getCategories(transactionContext.type))
   const [ transaction, setTransaction ] = useState<TTransaction>(transactionContext)
   const [ loader, setLoader ] = useState(false)
   const [ message, setMessage ] = useState('')
@@ -24,8 +26,15 @@ export const usePost = () => {
   const borderColor = color === 'error' ? '#f44336' : '#90caf9'
 
   const handleTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setType(e.target.value as TTransactionType)
-    setTransaction({ ...transaction, type: e.target.value as TTransactionType })
+    const type = e.target.value as TTransactionType
+    setType(type)
+    setCategories(getCategories(type))
+    setCategory(getCategory(type))
+    setTransaction({ ...transaction, type })
+  }
+
+  const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCategory(e.currentTarget.value)
   }
 
   const handleDateChange = (e: Dayjs) => {
@@ -46,6 +55,7 @@ export const usePost = () => {
       const t: TTransaction = {
         ...transaction,
         description,
+        category,
         value: Number(value),
         period: `${months[Number(month) - 1]}/${year}`,
         ref: user?.uid as string,
@@ -65,7 +75,8 @@ export const usePost = () => {
   return {
     title, color, 
     type, handleTypeChange,
-    borderColor, transaction, 
+    category, handleCategoryChange,
+    categories, borderColor, transaction, 
     handleDateChange, handleClose, handleSubmit,
     loader, message
   }

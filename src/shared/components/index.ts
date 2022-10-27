@@ -1,6 +1,7 @@
 export { Action } from './Action'
 export { Auth } from './Auth'
 export { Book } from './Book'
+export { Category } from './Category'
 export { Header } from './Header'
 export { Loader } from './Loader'
 export { Menu } from './Menu'

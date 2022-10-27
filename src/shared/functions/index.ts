@@ -1,5 +1,6 @@
+import { LinearScale } from '@mui/icons-material'
 import { FormEvent } from 'react'
-import { months } from '../states'
+import { expenseCategories, incomeCategories, months } from '../states'
 import { TTransaction, TTransactionType } from '../types'
 
 export const formatTransactionsBook = (transactions: TTransaction[]) => {
@@ -36,3 +37,21 @@ export const getElementValues = (e: FormEvent<HTMLFormElement>, elements: string
 )
 
 export const getColor = (type: TTransactionType) => type === 'Receita' ? 'primary' : 'error'
+
+export const getCategories = (type: TTransactionType) => (
+  type === 'Despesa' ? expenseCategories : incomeCategories
+)
+
+export const getCategory = (type: TTransactionType) => (
+  type === 'Despesa' ? 'Outros' : 'Salário'
+)
+
+export const getCategoryIcon = (category: string) => {
+  const expense = expenseCategories.find(({ name }) => name === category)
+  if (expense) return expense.icon
+
+  const income = incomeCategories.find(({ name }) => name === category)
+  if (income) return income.icon
+
+  return LinearScale
+}

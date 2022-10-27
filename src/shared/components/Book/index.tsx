@@ -1,6 +1,6 @@
-import { Card, Divider, List, ListItem, Paper, Typography } from '@mui/material'
+import { Box, Card, Divider, List, ListItem, Paper, Typography } from '@mui/material'
 import { useThemeContext } from '../../contexts'
-import { formatCurrency, formatTransactionsBook } from '../../functions'
+import { formatCurrency, formatTransactionsBook, getCategoryIcon } from '../../functions'
 import { TTransaction } from '../../types'
 import * as S from './style'
 
@@ -33,14 +33,18 @@ export const Book: React.FC<Props> = ({ transactions, handleClick }) => {
           </Typography>
           <List>
             {transaction.transactions.map((transaction, index) => {
-              const { description, value, type } = transaction
+              const { description, value, type, category } = transaction
+              const Icon = getCategoryIcon(category)
               return (
                 <ListItem 
                   key={index} 
                   sx={{ backgroundColor: getBackgroundColor(type)}}
                   onClick={() => handleClick(transaction)}
                 >
-                  <Typography>{description}</Typography>
+                  <Typography>
+                    <Icon />
+                    {description}
+                  </Typography>
                   <Typography variant="h6">{formatCurrency(value)}</Typography>
                 </ListItem>
               )
