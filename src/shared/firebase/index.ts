@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where, writeBatch } from 'firebase/firestore'
+import { v4 as uuid } from 'uuid'
 import { authConfig, db } from '../environment'
 import { TTransaction } from '../types'
 
@@ -18,6 +19,15 @@ export const logout = async (): Promise<void> => {
 
 export const create = async (transaction: TTransaction): Promise<void> => {
   await addDoc(collection(db, 'transactions'), transaction)
+}
+
+export const createDocs = async (transactions: TTransaction[]): Promise<void> => {
+  const batch = writeBatch(db)
+  transactions.forEach(transaction => {
+    const ref = doc(db, 'transactions', uuid())
+    batch.set(ref, transaction)
+  })
+  await batch.commit()
 }
 
 export const read = async (userId: string, period: string): Promise<TTransaction[]> => {
