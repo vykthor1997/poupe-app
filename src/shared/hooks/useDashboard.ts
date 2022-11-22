@@ -55,13 +55,13 @@ export const useDashboard = () => {
   }, [year, month])
 
   const handleMonthChange= (e: SelectChangeEvent) => {
-    setMonth(e.target.value)
     setUpdate(true)
+    setMonth(e.target.value)
   }
 
   const handleYearChange= (e: SelectChangeEvent) => {
-    setYear(e.target.value)
     setUpdate(true)
+    setYear(e.target.value)
   }
 
   const handleActionClick = (transaction: TTransaction) => {
@@ -79,9 +79,9 @@ export const useDashboard = () => {
   }
 
   const handleDelete = async () => {
+    setUpdate(true)
     transaction && await destroy(transaction.id as string)
     setTransaction(undefined)
-    setUpdate(true)
   }
   
   const handleNavigate = () => {
