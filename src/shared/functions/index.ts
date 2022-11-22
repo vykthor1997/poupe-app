@@ -1,7 +1,11 @@
-import { LinearScale } from '@mui/icons-material'
 import { FormEvent } from 'react'
+import { v4 as uuid } from 'uuid'
+import { LinearScale } from '@mui/icons-material'
+import { Rule } from '../environment'
 import { expenseCategories, incomeCategories, months } from '../states'
-import { TTransaction, TTransactionType } from '../types'
+import { TRecorrency, TTransaction, TTransactionType } from '../types'
+
+export const formatZero = (zero: number) => zero < 10 ? `0${zero}` : zero
 
 export const formatTransactionsBook = (transactions: TTransaction[]) => {
   const allDates = transactions.map(({ date }) => date)
@@ -54,4 +58,30 @@ export const getCategoryIcon = (category: string) => {
   if (income) return income.icon
 
   return LinearScale
+}
+
+export const addRecorrency = (transaction: TTransaction, recorrency: TRecorrency): TTransaction[] => {
+  const { frequency, take } = recorrency
+  const { date } = transaction
+  const [ year, month, day ] = date.split('/') 
+
+  const rule = new Rule({
+    frequency,
+    start: new Date(Number(year), Number(month), Number(day)),
+  })
+  
+  const id = uuid()
+
+  const transactions = rule.occurrences({ take }).toArray().map(({ date: d }, index) => {
+    const date = `${d.getFullYear()}/${formatZero(d.getMonth() + 1)}/${formatZero(d.getDate())}`
+    const period = `${months[d.getMonth() - 1 + index]}/${d.getFullYear()}`
+    return {
+      ...transaction,
+      date,
+      period,
+      installment: `${index + 1}/${take}`,
+      recorrencyRef: id
+    }
+  })
+  return transactions
 }
