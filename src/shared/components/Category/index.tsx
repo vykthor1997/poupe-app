@@ -24,7 +24,7 @@ export const Category: React.FC<Props> = ({
     theme.palette.error.main : theme.palette.primary.main
 
   return (
-    <FormControl sx={S.style}>
+    <FormControl sx={S.style} fullWidth>
       <Typography component="label">Categoria</Typography>
       <RadioGroup value={category}>
         {categories.map(({ name, icon: Icon }, index) => (
