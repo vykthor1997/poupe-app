@@ -25,7 +25,7 @@ export const Dashboard: React.FC = () => {
       <Box component="main">
         <Period 
           month={month} months={months} handleMonthChange={handleMonthChange}
-          year={year} years={[2022]} handleYearChange={handleYearChange}
+          year={year} years={[2022, 2023]} handleYearChange={handleYearChange}
         />
         <Wallet wallet={wallet} />
         <Book 
