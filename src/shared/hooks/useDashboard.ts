@@ -17,7 +17,7 @@ export const useDashboard = () => {
   } = useTransactionContext()
   const navigate = useNavigate()
   const [ month, setMonth ] = useState(m)
-  const [ year, setYear ] = useState<string | number>(2022)
+  const [ year, setYear ] = useState<string | number>(2023)
   const [ transaction, setTransaction ] = useState<TTransaction>()
   const [ transactions, setTransactions ] = useState<TTransaction[]>(transactionsContext)
   const [ wallet, setWallet ] = useState(data.wallet)
